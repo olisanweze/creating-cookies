@@ -20,6 +20,7 @@ const settingsDialog = select('.settings-dialog');
 const acceptButton = select('.accept-button');
 const settingsButton = select('.settings-button');
 const preferences = select('.preferences');
+const inputs = selectAll('.toggle-switch');
 
 /*=======================================================*/
 /*  Functions                                            */
@@ -132,11 +133,14 @@ function acceptCookies() {
 }
 
 function setPreferredCookies() {
-  let inputs = selectAll('.toggle-switch');
   setPreferences(inputs);
   modal.classList.remove('modal-bg-dark');
   settingsDialog.classList.remove('block');
   printAllCookies();
+}
+
+function resetPreferrences() {
+  inputs.checked = true;
 }
 
 /*=======================================================*/
@@ -144,6 +148,7 @@ function setPreferredCookies() {
 /*=======================================================*/
 
 listen('load', window, cookieCheck);
+listen('load', window, resetPreferrences);
 listen('click', settingsButton, displaySettingsDialog);
 listen('click', acceptButton, acceptCookies);
 listen('click', preferences, setPreferredCookies);
